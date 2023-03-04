@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,300;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200&display=swap');
+
+:root {
+    --default-font: 'Poppins', sans-serif;
+    --display-font: 'Cormorant Garamond', serif;
+    --black: #141414
+    --grey: #333333;
+    --light-grey: #949494;
+    --white: #F5F5F5;
+    --blue: #3C8CCD;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: var(--default-font);
+    color: var(--black);
+    text-align: justify;
+}
+
+html {
+    width: 100vw;
+    height: 100vh;
+}
+
+.main-container {
+    max-width: 700px;
+    margin-top: 50px;
+    padding: 25px;
+    margin: auto;
+    padding-top: 70px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.input-word{
+    border-radius: 25px;
+    padding: 5px 18px 5px 18px;
+    width: 150px;
+    height: 40px;
+    font-size: 0.7em;
+}
+
+.search-word {
+    height: 40px;
+    width: 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-right: auto;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.word-display {
+    font-family: var(--display-font);
+    font-size: 3.2em;
+    font-weight: 800;
+    margin-top: 25px;
+}
+
+.main-word-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.syllables {
+    margin: 10px 0px 15px 0px;
+}
+
+.main-meaning {
+    font-weight: 500;
+    margin: 20px 0px;
+    font-size: 1.1em;
+}
+
+.other-meaning {
+    font-weight: 300;
+    font-size: 0.9em;
+}
+
+.line {
+    background-color: black;
+    width: 60px;
+    height: 1px;
+    display: block;
+    border: 0px;
+    margin: 0px 0px 20px 0px;
+}
+
+.big-line {
+    width: 100%;
+    margin: 20px 0px;
+}
+
+.etymology {
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+.sentences {
+    margin: 20px 0px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.strong {
+    font-weight: 600;
+}
