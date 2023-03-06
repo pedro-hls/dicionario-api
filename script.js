@@ -14,94 +14,107 @@ let synonyms = document.querySelector('.synonyms')
 // Pega o que está escrito no Input
 
 searchWord.addEventListener('click', word)
+inputText.addEventListener('keyup', (event) => {
+    if(event.key == 'Enter'){
+        word()
+    }
+})
 
 async function word() {
     
-    let wordInput = inputText.value.toLowerCase()
-    let apiDefault = "https://dicio-api-ten.vercel.app/v2/"
-    console.log(wordInput)
-
-    // Etimologia e Significado da Palavra
-    let apiMain = apiDefault + wordInput.toLowerCase()
-    
-    try { 
-        const mainResponse = await fetch(apiMain)
-        const mainData = await mainResponse.json()
+        let wordInput = inputText.value.toLowerCase()
+        let apiDefault = "https://dicio-api-ten.vercel.app/v2/"
+        console.log(wordInput)
         
-        console.log(mainData)
+        // Etimologia e Significado da Palavra
+        let apiMain = apiDefault + wordInput.toLowerCase()
         
-        wordDisplay.innerHTML = (wordInput)
+        try { 
+            const mainResponse = await fetch(apiMain)
+            const mainData = await mainResponse.json()
+            
+            console.log(mainData)
 
-        if(mainData.length >= 1) {
-            mainMeaning.innerHTML = (mainData[0].meanings[0].toLowerCase())
-            if(mainData.length > 1){
-                otherMeaning.innerHTML = (mainData[0].meanings[1].toLowerCase())
+            if(mainData.length < 35){
+                wordDisplay.innerHTML = (wordInput)
+            } else{
+                inputText.value = ''
+            }
+            
+
+            if(mainData.length >= 1) {
+                mainMeaning.innerHTML = (mainData[0].meanings[0].toLowerCase())
+                if(mainData.length > 1){
+                    otherMeaning.innerHTML = (mainData[0].meanings[1].toLowerCase())
+                }
+            }
+
+            etymology.innerHTML = (mainData[0].etymology)
+
+            if(mainData[0].etymology.length == 0){
+                etymology.innerHTML = (mainData[1].etymology.toLowerCase())
+            }
+            
+        }
+        catch(errorMainApi){
+            console.log('erroMainApi')
+            inputText.placeholder = 'palavra inválida!'
+        }
+
+        // Sílabas
+        let apiSyllables = apiDefault + 'syllables/' + wordInput
+        
+        try {
+            const syllablesResponse = await fetch(apiSyllables)
+            const syllablesData = await syllablesResponse.json()
+
+            console.log(syllablesData)
+            if(syllablesData.length !== 35){
+                syllables.innerHTML = ''
+                for(e = 0; e < syllablesData.length; e++){
+                    console.log(syllablesData[e])
+                    syllables.innerHTML += `[${syllablesData[e].toLowerCase()}]`
+                }
             }
         }
-
-        etymology.innerHTML = (mainData[0].etymology)
-
-        if(mainData[0].etymology.length == 0){
-            etymology.innerHTML = (mainData[1].etymology)
+        catch(errorSyllables){
+            console.log('erroSyllables')
         }
-        
-    }
-    catch(errorMainApi){
-        console.log('erroMainApi')
-        inputText.placeholder = 'Palavra Inválida!'
-    }
 
-    // Sílabas
-    let apiSyllables = apiDefault + 'syllables/' + wordInput
+        // Frases
+        let apiSentences = apiDefault + 'sentences/' + wordInput
+
+        try {
+            const sentencesResponse = await fetch(apiSentences)
+            const sentencesData = await sentencesResponse.json()
+
+            console.log(sentencesData)
+            sentences.innerHTML = `"${sentencesData[0].sentence.toLowerCase()}" <i class="italic">${sentencesData[0].author.toLowerCase()}</i>`
+
+        }
+        catch(errorSentences){
+            console.log('erroSentences')
+        }
+
+        // Sinônimos
+        let apiSynonyms = apiDefault + 'synonyms/' + wordInput
+
+        try {
+            const synonymsResponse = await fetch(apiSynonyms)
+            const synonymsData = await synonymsResponse.json()
+
+            synonymsData.sort()
+
+            console.log(synonymsData)
+
+            if(synonymsData.length > 3){
+                synonyms.innerHTML = `${synonymsData[0]}, ${synonymsData[1]}, ${synonymsData[2]}`
+            } else {
+                synonyms.innerHTML = '<i class="italic>(nenhum sinônimo disponível)</i>'
+            }
+        }
+        catch(errorSynonyms){
+            console.log('errorSynonyms')
+        }
     
-    try {
-        const syllablesResponse = await fetch(apiSyllables)
-        const syllablesData = await syllablesResponse.json()
-
-        console.log(syllablesData)
-        syllables.innerHTML = ''
-        for(e = 0; e < syllablesData.length; e++){
-            console.log(syllablesData[e])
-            syllables.innerHTML += `[${syllablesData[e].toLowerCase()}]`
-        }
-    }
-    catch(errorSyllables){
-        console.log('erroSyllables')
-    }
-
-    // Frases
-    let apiSentences = apiDefault + 'sentences/' + wordInput
-
-    try {
-        const sentencesResponse = await fetch(apiSentences)
-        const sentencesData = await sentencesResponse.json()
-
-        console.log(sentencesData)
-        sentences.innerHTML = `"${sentencesData[0].sentence.toLowerCase()}" <strong class="strong">${sentencesData[0].author.toLowerCase()}</strong>`
-
-    }
-    catch(errorSentences){
-        console.log('erroSentences')
-    }
-
-    // Sinônimos
-    let apiSynonyms = apiDefault + 'synonyms/' + wordInput
-
-    try {
-        const synonymsResponse = await fetch(apiSynonyms)
-        const synonymsData = await synonymsResponse.json()
-
-        synonymsData.sort()
-
-        console.log(synonymsData)
-
-        if(synonymsData.length > 3){
-            synonyms.innerHTML = `<strong class="strong">sinônimos:</strong> ${synonymsData[0]}, ${synonymsData[1]}, ${synonymsData[2]}`
-        } else {
-            synonyms.innerHTML = '<i class="italic>(nenhum sinônimo disponível)</i>'
-        }
-    }
-    catch(errorSynonyms){
-        console.log('errorSynonyms')
-    }
 }

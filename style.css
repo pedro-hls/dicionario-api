@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,700;1,300;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap');
 
 :root {
     --default-font: 'Poppins', sans-serif;
-    --display-font: 'Cormorant Garamond', serif;
+    --display-font: 'Shippori Mincho', serif;
     --black: #141414
     --grey: #333333;
     --light-grey: #949494;
@@ -29,20 +29,37 @@ html {
     margin-top: 50px;
     padding: 25px;
     margin: auto;
-    padding-top: 70px;
+    padding-top: 30px;
 }
 
 .nav-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+    position: relative
+}
+
+.icon-github {
+    width: 40px;
+    height: 40px;
+    border: 2px solid black;
+    padding: 3px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.link-github {
+    display: block;
+    margin-left: auto;
 }
 
 .input-word{
     border-radius: 25px;
     padding: 5px 18px 5px 18px;
-    width: 150px;
+    width: 220px;
     height: 40px;
-    font-size: 0.7em;
+    font-size: 1em;
+    font-family: var(--display-font);
+    font-weight: bolder;
 }
 
 .search-word {
@@ -50,18 +67,19 @@ html {
     width: 40px;
     font-size: 1.2em;
     cursor: pointer;
-    margin-right: auto;
     padding: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    left: 175px;
 }
 
 .word-display {
     font-family: var(--display-font);
     font-size: 3.2em;
     font-weight: 800;
-    margin-top: 25px;
+    margin-top: 40px;
 }
 
 .main-word-container {
@@ -70,18 +88,32 @@ html {
     align-items: center;
 }
 
+.description {
+    font-family: var(--display-font);
+    font-size: 0.9em;
+    font-weight: bolder;
+    margin-bottom: 20px;
+}
+
 .syllables {
-    margin: 10px 0px 15px 0px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .main-meaning {
-    font-weight: 500;
+    font-weight: 400;
     margin: 20px 0px;
     font-size: 1.1em;
 }
 
+.padding-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}
+
 .other-meaning {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.9em;
 }
 
@@ -89,27 +121,23 @@ html {
     background-color: black;
     width: 60px;
     height: 1px;
-    display: block;
     border: 0px;
-    margin: 0px 0px 20px 0px;
-}
-
-.big-line {
-    width: 100%;
-    margin: 20px 0px;
+    margin: 20px 0px 40px 0px;
 }
 
 .etymology {
     margin-bottom: 20px;
-    font-weight: 300;
+    font-weight: 400;
+    font-size: 0.8em;
 }
 
 .sentences {
-    margin: 20px 0px;
+    margin: 0px 0px 20px 0px;
 }
 
 .italic {
     font-style: italic;
+    font-weight: 300;
 }
 
 .strong {
